@@ -1,8 +1,8 @@
 
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import '../models/ball_model.dart';
 
 class BallMachineController extends ChangeNotifier{
 
@@ -15,12 +15,16 @@ class BallMachineController extends ChangeNotifier{
 
   int numberOfPlay = 40;
 
-  List<int> listOfRandomNumbers = [];
+  List<int> listOfRandomNumbers = []; /// refatorarando e sub por lista de models
+
+  List<BallModel> listOfBallsModel = [];
+
   bool spinningStatus = false;
   bool overrideAnimationBall = false;
   double spinningTurns = 0.0;
   int timeScrollBall = 3; // 3 animation steps, timeScrollBall sec each step
   bool showProgressStatus = false;
+  int score = 0;
 
 
   addNewRandomBall() async {
@@ -28,7 +32,9 @@ class BallMachineController extends ChangeNotifier{
 
     if(!listOfRandomNumbers.contains(value)){
       spinningBallEvents();
-      listOfRandomNumbers.add(value);
+      listOfRandomNumbers.add(value); /// sub lista
+      listOfBallsModel.add(BallModel(number: value)); /// nova lista
+
       _scrollToEnd();
     }else if(listOfRandomNumbers.length < numberOfPlay){
       addNewRandomBall();
@@ -72,11 +78,23 @@ class BallMachineController extends ChangeNotifier{
     );
   }
 
+  markBall(BallModel ball){
+    for(int i = 0; i < listOfRandomNumbers.length; i++){
+      if(ball.number == listOfRandomNumbers[i]) {
+        ball.isMark = true;
+        score++;
+      }
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
     animatedListController.dispose();
   }
+
+
 
 }

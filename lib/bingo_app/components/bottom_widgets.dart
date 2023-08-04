@@ -85,7 +85,46 @@ class BottomWidgets extends StatelessWidget {
                         color: Colors.white
                     ),
                   )
-              )
+              ),
+
+
+              Container(
+                padding: const EdgeInsets.all(10),
+                height: 95,
+                width: size.width / 4,
+                decoration: BoxDecoration(
+                    color: Colors.green[900],
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15),
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black54,
+                        offset: Offset(5,5),
+                        blurRadius: 5,
+                      )
+                    ]
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Pontos",
+                      style: GoogleFonts.actor(
+                          fontSize: 20,
+                          color: Colors.white70
+                      ),
+                    ),
+
+                    Text("${controller.score}",
+                      style: GoogleFonts.actor(
+                          fontSize: 35,
+                          color: Colors.white
+                      ),
+                    )
+                  ],
+                ),
+              ),
 
             ],
           );
